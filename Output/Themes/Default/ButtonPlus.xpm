@@ -1,0 +1,17 @@
+/* XPM */
+static char * xpmButtonPlus[] = {
+/* columns rows colors chars-per-pixel */
+"9 9 2 1",
+". c Black",
+"  c None",
+/* pixels */
+".........",
+".       .",
+".   .   .",
+".   .   .",
+". ..... .",
+".   .   .",
+".   .   .",
+".       .",
+".........",
+};

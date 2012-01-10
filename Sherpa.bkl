@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<!--
+Command lines:
+gnu:
+	bakefile -fgnu -DWX_DEBUG=1 -DWX_UNICODE=1 -oMakefile sherpa.bkl 
+
+-->
+<makefile>
+
+  <include file="presets/wx.bkl" />
+
+  <set var="WX_VERSION" overwrite="0">26</set>
+  <set var="WXWIDGETS_PATH" overwrite="0">$(DOLLAR)(WXWIDGETS)</set>
+
+  <set var="SQLITE_LIB">sqlite3</set>
+  <set var="WXSQLITE_LIB">
+    <if cond="WX_DEBUG=='0' and WX_UNICODE=='1'">wxdbi_sqlited</if>
+    <if cond="WX_DEBUG=='1' and WX_UNICODE=='1'">wxdbi_sqliteud</if>
+  </set>
+  <set var="TARGET_PLATFORM">
+		<if cond="PLATFORM_WIN32=='1'">WIN32</if>
+		<if cond="PLATFORM_UNIX=='1'">UNIX</if>
+  </set>
+  <set var="PLATFORM_DEFINE">
+		<if cond="PLATFORM_WIN32=='1'">_WINDOWS</if>
+		<if cond="PLATFORM_UNIX=='1'">__UNIX</if>
+  </set>
+	<set var="BUILDDIR">Output</set>
+
+	<!-- 
+  <template id="pchbase">
+    <precomp-headers>on</precomp-headers>
+    <precomp-headers-file>Sherpa.h.gch</precomp-headers-file> 
+    <precomp-headers-gen>SherpaApp.cpp</precomp-headers-gen>
+    <precomp-headers-header>Sherpa.h</precomp-headers-header> 
+    <precomp-headers-exclude>wxFileUtilities.h $(COMPILER_SPECIFIC_OTHERS)</precomp-headers-exclude> 
+  </template>
+	-->
+
+	<lib id="wxdbi_sqlite" template="wx">
+		<libname>$(WXSQLITE_LIB)</libname>
+
+    <cxxflags>-DwxDBI_SQLITE</cxxflags>
+
+    <sources>
+      ../wxwidgets/src/common/dbi.cpp
+			../wxwidgets/src/common/dbi/record.cpp
+			../wxwidgets/src/common/dbi/sqlite.cpp
+    </sources>
+		<if cond="FORMAT=='gnu'">
+			<include>../wxwidgets/include</include>
+		</if>
+  </lib>
+
+	<lib id="wxgnomefiletypes" template="wx">
+		<libname>wxgnomefiletypes</libname>
+
+    <sources>
+      ../wxwidgets/src/common/filetypescmn.cpp
+      ../wxwidgets/src/gtk/gnome/gnomefiletypes.cpp
+    </sources>
+		<if cond="FORMAT=='gnu'">
+			<include>/usr/include/gnome-vfs-2.0</include>
+			<include>/usr/lib/glib-2.0/include</include>
+			<include>/usr/include/glib-2.0</include>
+			<include>/usr/include/bonobo-activation-2.0</include>
+			<include>/usr/include/orbit-2.0</include>
+			<include>/usr/include/gtk-2.0</include>
+			<include>/usr/include/pango-1.0</include>
+			<include>/usr/lib/gtk-2.0/include</include>
+			<include>../wxwidgets/include</include>
+		</if>
+  </lib>
+
+	<lib id="wxgnomevfs" template="wx">
+		<libname>wxgnomevfs</libname>
+
+    <sources>
+      ../wxwidgets/src/gtk/gnome/gnomevfs.cpp
+    </sources>
+		<if cond="FORMAT=='gnu'">
+			<include>/usr/include/gnome-vfs-2.0</include>
+			<include>/usr/lib/glib-2.0/include</include>
+			<include>/usr/include/glib-2.0</include>
+			<include>/usr/include/bonobo-activation-2.0</include>
+			<include>/usr/include/orbit-2.0</include>
+			<include>../wxwidgets/include</include>
+		</if>
+  </lib>
+
+	<lib id="wxgtk" template="wx">
+		<libname>wxgtk</libname>
+
+    <sources>
+      ../wxwidgets/src/gtk/gtk.cpp
+    </sources>
+		<if cond="FORMAT=='gnu'">
+			<include>/usr/include/gtk-2.0</include>
+			<include>/usr/include/glib-2.0</include>
+			<include>/usr/lib/glib-2.0/include</include>
+			<include>/usr/include/gnome-vfs-2.0</include>
+			<include>/usr/include/bonobo-activation-2.0</include>
+			<include>/usr/include/pango-1.0</include>
+			<include>/usr/include/orbit-2.0</include>
+			<include>/usr/lib/gtk-2.0/include</include>
+			<include>../wxwidgets/include</include>
+		</if>
+  </lib>
+
+	<lib id="wxglib" template="wx">
+		<libname>wxglib</libname>
+
+    <sources>
+      ../wxwidgets/src/gtk/glib.cpp
+    </sources>
+		<if cond="FORMAT=='gnu'">
+			<include>/usr/include/gtk-2.0</include>
+			<include>/usr/include/glib-2.0</include>
+			<include>/usr/lib/glib-2.0/include</include>
+			<include>/usr/include/gnome-vfs-2.0</include>
+			<include>/usr/include/bonobo-activation-2.0</include>
+			<include>/usr/include/pango-1.0</include>
+			<include>/usr/include/orbit-2.0</include>
+			<include>/usr/lib/gtk-2.0/include</include>
+			<include>../wxwidgets/include</include>
+		</if>
+  </lib>
+
+  <exe id="Sherpa" template="wx"> <!-- template_append="pchbase" -->
+		<if cond="WX_DEBUG=='0'">
+			<debug-info>on</debug-info>
+		</if>
+		<cxx-exceptions>on</cxx-exceptions>
+    <runtime-libs>dynamic</runtime-libs>
+
+		<if cond="FORMAT=='msvc'">
+			<app-type>gui</app-type>
+			<win32-res>wx.rc</win32-res>
+		</if>
+
+		<define>$(PLATFORM_DEFINE)</define>
+
+		<if cond="FORMAT=='gnu'">
+			<!-- <objects-depend>Sherpa.h.gch</objects-depend> -->
+			<include>./include</include>
+			<include>../wxwidgets/include</include>
+			<include>/usr/lib/glib-2.0/include</include>
+			<include>/usr/include/gnome-vfs-2.0</include>
+			<include>/usr/include/glib-2.0</include>
+			<include>/usr/include/bonobo-activation-2.0</include>
+			<include>/usr/include/orbit-2.0</include>
+			<include>/usr/include/gtk-2.0</include>
+			<include>/usr/lib/gtk-2.0/include</include>
+			<include>/usr/include/pango-1.0</include>
+		</if>
+
+		<lib-path>$(BUILDDIR)</lib-path>
+
+    <sources>
+      src/SherpaApp.cpp
+      src/SherpaFrame.cpp
+      src/DirectoryTree.cpp
+      src/DirectoryView.cpp
+      src/DirectoryEntry.cpp
+      src/DirectoryEntryArray.cpp
+      src/OptionsDialog.cpp
+
+      src/ResourceManager.cpp
+			src/SherpaEvent.cpp
+      src/ThemeHandler.cpp
+			src/UndoStack.cpp
+      src/Wastebin.cpp
+			
+      ../wxwidgets/src/common/fileutils.cpp
+    </sources>
+    
+    <wx-lib>core</wx-lib>
+    <wx-lib>base</wx-lib>
+    
+    <sys-lib>$(SQLITE_LIB)</sys-lib>
+		<sys-lib>$(WXSQLITE_LIB)</sys-lib>
+		<sys-lib>wxgnomefiletypes</sys-lib>
+		<sys-lib>wxgnomevfs</sys-lib>
+		<sys-lib>wxgtk</sys-lib>
+		<sys-lib>wxglib</sys-lib>
+  </exe>
+
+
+<!--
+<if cond="FORMAT=='gnu'">
+	<if cond="PLATFORM_UNIX=='1'">
+		< ! - -
+		This target, being called 'Sherpa.h.gch', gets gcc to build the precompiled header file list (plain text)
+		While the command builds the precompiled header itself (binary)
+		- - >
+		<action id="Sherpa.h.gch">
+			<command>$(CXX) -c -o Sherpa.gch $(SHERPA_CXXFLAGS) $(CPPDEPS) -x c++ include/Sherpa.h</command>
+		</action>
+
+		< ! - - Add an action which allows us to run the program - - >
+		<action id="run">
+			<depends>Sherpa</depends>
+			<command>./$(DOLLAR)(shell echo Sherpa)</command>
+		</action>
+	</if>
+</if>
+-->
+
+</makefile>

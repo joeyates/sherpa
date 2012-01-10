@@ -1,0 +1,163 @@
+Design Notes
+====================================
+UML diagrams for Sherpa are made with umbrello.
+
+The app consists of a Frame which can contain various configurations of views.
+
+The frame is responsible for modifications to the file system and handling of the undo/redo stack.
+
+Views:
+	Directory Tree - a tree view control showing the direcory hierarchy
+	Directory View - a list of the files and directories in a particular directory
+		Styles:
+			Preview
+			Icon List
+			Details
+	Wastebin View - a virtual Directory View containing deleted files
+
+Other GUI items:
+	Path Edit Box - a text edit control that shows the current path and allows input (with autocomplete)
+		Accepts paths in OS's natural format, e.g 'C:\Program Files\Foo.exe' in Windows and '/tmp/foo' in *NIX)
+		Accepts 'file://...' variants of the same.
+		Accepts 'wastebin://...' virtual paths.
+	History Buttons: back & forward
+	Favourites menu: can handle natural and virtual paths.
+
+Configurations:
+	1. Directory Tree pane + Directory View pane
+	2. Single window Directory View
+		- Path Edit Box
+		- Folder activate opens view of directory
+		- History Buttons
+	3. Multi window Directory View
+		- Folder activate opens new window
+		- Up directory tool bar button
+	4. Multicolumn History Window
+		- Path Edit Box
+		- Folder activate opens new column
+		- History Buttons
+
+File Browser
+Modular
+substitute user mode
+Views
+Browser View
+Left pane: tree
+Right pane: directory contents
+
+Single Pane
+Open directory either
+1.Opens new window
+2.Replaces current (needs history buttons)
+Toolbar
+Customisable
+File System Tree View
+If not showing hidden directories, they are added as they are entered.
+Directory View
+Shows
+Directory contents
+Wastebin
+Find results
+Listing types:
+Large icons
+Preview
+Multi-column
+Detailed
+Directory Change Monitoring
+Hook in to GTK and Windows systems
+Skins
+Buttons,
+List style,
+Standard icons
+Plugins
+Directory sorter?
+Partition manager
+Mount/unmount
+Edit fstab
+Autoloading?
+Settings
+Per-folder settings
+Path
+Column widths
+File sorting choices
+Find
+Multi-thread
+Regexes?
+MIME and File Types
+Launch files in app according to system settings
+
+
+Other Software
+=================
+Implementation:
+	C++
+	wxWindows 2.6+
+
+Dependencies:
+	wxWidgets >= 2.6: [Does it work with binary install?]
+		Currently using wxWidgets 2.6.2 (http://biolpc22.york.ac.uk/pub/2.6.2/wxWidgets-2.6.2.tar.bz2)
+		Use the setup scipt:
+		1. Copy Development/wxsetup.pl to a directory,
+		2. Run:
+			>perl wxsetup.pl
+		3. It will create a subdirectory wxWidgets-<VERSION>
+	SQLite >= 3 (yum -y install sqlite-devel)
+	Bakefile >= 0.1.9.1 (http://puzzle.dl.sourceforge.net/sourceforge/bakefile/bakefile-0.1.9.1.tar.gz)
+	Doxygen (yum graphviz-2.6-1.fc4 && yum -y doxygen.i386)
+
+Source
+==============
+	Download from CVS
+		cvs co c/wxWidgets/libraries
+		cvs co c/wxWidgets/src
+		cvs co c/wxWidgets/include
+		cvs co c/wxWidgets/lib
+		cvs co c/wxWidgets/Sherpa
+
+	Compile the following libraries:
+		(Make files are in c/wxWidgets/libraries, libs go in c/wxWidgets/lib)
+		libwxdbi
+		libwxgnomefiletypes
+		libwxgnomevfs
+		libwxgtk
+		libwxglib
+
+Build System
+=============
+Sherpa uses bakefile as its build maintenance system.
+
+Environment variables
+----------------------
+	WXWIDGETS=<Path to root directory where wxWidgets source resides>
+	BID_WXWIDGETS=<Path to BID CVS directory> + '/c/wxWidgets'
+	CPLUS_INCLUDE_PATH=<Path to BID CVS directory> + '/c/include:' <Path to BID CVS directory> + '/c/wxWidgets/include'
+
+Coding
+==========
+
+Style
+-------
+	Indentation
+	Templates
+	Exceptions
+
+License
+----------
+The license (an instance of the OSI certified BSD license) is in the file
+'LICENSE.txt'.
+
+All files covered by the license must start with a suitably modified
+version of the following text:
+
+//////////////////////////////////////////////////////////////////////////
+//
+// Sherpa - Cross-platform file browser
+// RCS-ID:      <DOLLAR>Id: <FILE NAME>,v 1.2 2005/12/10 19:10:10 incorpoc Exp <DOLLAR>
+// Created:     <CREATION DATE>
+// Copyright (C) <YEAR RANGE>, The Sherpa Development Team
+//              (see the file 'AUTHORS.txt')
+// License:     BSD license (see the file 'LICENSE.txt')
+//
+// <FILE NAME> - <DESCRIPTION>
+//
+//////////////////////////////////////////////////////////////////////////

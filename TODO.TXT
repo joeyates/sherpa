@@ -1,0 +1,191 @@
+See STATUS.txt for version history and roadmap.
+
+This file contains an unstructured list
+of changes to make to the system.
+
+--------------------------------------------------------------------------------------
+
+Separate BID stuff from Sherpa stuff.
+
+Sourceforge:
+	License: BSD License
+
+Bakefile:
+	Get precompiled headers working
+
+Bugs:
+	DirectoryView: We get an assert if we do Ctrl+Z after the only item has just been
+	removed from a list control
+
+Look'n'feel:
+	Alter wxListCtrl so vertical lines come down from the folder, NOT from the [+]
+	Alternate line colouring
+	Filename edit covers icon
+
+Drag'n'drop
+	C.f. /var/www/html/Information/Programming/Frameworks/wxWidgets/Examples/Drag'n'Drop.txt
+
+Cut'n'paste
+	Interaction with system clipboard
+	How do we handle Cut and Copy?
+		Does a cut item disappear?
+		Where does it go?
+		What happens if the program is closed?
+
+Keyboard events
+	Ctrl+X
+	Ctrl+C
+	Ctrl+V
+
+Multilanguage
+	- Use SQLite?
+	- Use IDs?
+
+Wastebin
+	Add 'Empty wastebin' menu item in file menu only when wastebin is visible
+		Enable only when Wastebin has items
+	Security
+	Compress in, decompress out
+
+SherpaFrame
+	Toolbar
+		Buttons
+			History
+			Up to parent
+	Menu
+		Favourites
+			Data in SQLite?
+		Terminal from here
+
+DirectoryTree
+	Do population on the idle thread (and clear '+'s)
+	Interface for setting m_bDirectoriesFirst
+
+DirectoryView
+	Columns
+		File sizes
+		Owner and group
+		Selector interface
+
+Find
+	Find thread with cancel
+	Use a generic file/folder list widget, to be used for wastebin too
+	Find in email?
+
+(Auto?)Disk mounting
+
+MSW:
+	Icons:
+		Windows: get from .exes
+  Persona
+		need to handle permissions correctly
+
+======================================================================
+
+Waste::Bin: Handle directory deletion:
+DeleteFile throws an exception if the file/directory is larger than a pre-set limit
+Problem: need a Waste::Bin file on each partition.
+DeleteFile moves file/directory
+Compress subdirectories?
+RestoreFile unpacks
+Special Waste::Bin view for DirectoryView
+Make a desktop link?
+Add toolbar:
+Wastebin button.
+
+Version 0.6.1 - Modifications
+Undo/redo:
+Undo::Stack remebers:
+Move,
+To Waste::Bin
+...?
+File/directory deletion:
+Move to Waste::Bin,
+Add to Undo::Stack
+
+DirectoryTree: Directory
+Rename -> Send move event to SherpaFrame
+AddFile
+AddDirectory
+Delete
+Drag'n'Drop:
+	Internal
+		from Desktop/other app
+
+DirectoryList: New directory
+Permissions setting
+Window size setting should remember if full screen
+DirectorEntry: Cache permissions string
+
+Version 0.5.2 – C++ Style
+Can the hash assignment AND dereference be done via []?
+Expand style notes:
+Tab/spaces
+Indentation
+Early exit from functions
+Exceptions
+Templates
+One action per statement
+Asserts?
+Change “ResourceId” to “StockResourceId”
+
+Version 0.5.3 – Documentation
+Update UML:
+Idle thread for DirectoryView
+Doxygen?
+License
+Copyright in headers
+
+Version 0.5.4 - Build
+Optional Static/Dynamic linked build
+Check header dependencies in makefile
+Windows build?
+Bug: segfault caused by gnome_vfs calls – seems to depend on time since the init() function was called.
+Change traces: make them activity-based, not component-based
+
+Version 0.5.5 – Bugs & TBIs
+Use GtkIconTheme to get correctly sized icon (http://localhost/gtk/gtk/GtkIconTheme.html)
+Bug: Loaded file type images lose transparency
+
+Version 0.7 – Navigation
+DirectoryList: Select All
+Copy, cut and paste.
+SINGLE WINDOW MODE
+SherpaFrame: Favourites - hierarchical
+SherpaFrame: History
+Wait cursor on:
+Activate
+Refresh
+'Open with...'
+Internationalisation
+DirectoryView: Sort (asc/desc) by column
+Add direction indicator to column headers
+
+Version 0.8 - Properties
+File/Directory properties: Dialog box
+Permissions
+DirectoryList: Show file size and owner. Sticky
+DirectoryList: New Files
+Edit box
+File types: Management
+Choice of default app
+Option to edit/run scripts
+
+Version 0.9 - Find
+Find: Cancel
+Find: with grep
+
+Version 0.9.1 – Finishing Touches
+Make full set of basic images
+Improve double-click
+Status bar
+Use fam for file mod notification
+Settings:
+	?
+SherpaFrame: About box
+Most commonly visited folders list
+Toolbar
+
+Version 2
+	ThemeHandler versions: database, binary, zip
+	Import/export wastebin to Gnome/etc bins

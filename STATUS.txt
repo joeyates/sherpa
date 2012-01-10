@@ -1,0 +1,132 @@
+Version history:
+
+Version 0.1.0
+TreeView and DirectoryList
+Opening directories 'Activated' in DirectoryList
+Opening files 'Activated' in DirectoryList using SciTE
+Creating files and directories
+Delete files
+Recursive folder delete
+Basic settings system
+
+Version 0.2.0
+SherpaFrame
+	Show hidden UI
+DirectoryTree
+	Remove deleted directories
+	Add hidden directories when opened
+DirectoryView:
+	Permissions column
+	Save column widths
+Persona: Get user name & group
+Options dialog
+	Trace flags
+Permissions checks on DirectoryTree
+Execute binaries
+Load text files in SciTE
+
+Version 0.3.0
+Added FileTypesManager back end
+DirectoryEntry:
+	Check for all types of files
+	Moved responsability for decriptions from DirectoryView
+	Launch files with favourite app, or exes directly
+Permissions checks
+	Open file
+
+Version 0.4.0
+DirectoryTree
+	Plus/minus buttons on TreeView
+	Add directories when created
+	Adjust if the “Show hidden” option is changed
+DirectoryList
+	Resolved Bug: Crash when deleting files
+
+Version 0.5
+Version 0.5.0 - File Images
+Separate DirectoryTree's image list
+DirectoryList: Icons
+1.Add an image list
+2.Get icons from wxFileTypes
+3.Map file types to image list entries with a hash
+
+DirectoryList: Rename files and directories
+DirectoryView: Shift- and Ctrl-selection
+
+Version 0.5.1 - Themes
+ThemeHandler class:
+ThemeHandler base class
+Polymorphic
+Initial implementation is FileThemeHandler
+Load images
+Resolved Bug: DirectoryView shows root contents before initial path is set
+DirectoryView:
+Idle handler detail addition
+Virtual items
+Rejected: DirectoryEntry: Use a subclass in DirectoryView – DirectoryTree uses simpler base class, DirectoryView has caching
+
+Handle links:
+Get destination
+Show correct icon: File/directory/broken
+Create ad hoc link icons based on destination.
+Draw link symbol
+
+Version 0.6 - Modifications
+Version 0.6.0 - Waste::Bin
+C++ style: Exceptions
+Created Exception base class
+Implement Waste::Bin using SQLite
+
+0.6
+	0.6.2 Undo stack
+	0.6.3 Undo/Redo actions
+	0.6.4 Path in SherpaFrame caption
+	0.6.5 Path text edit
+	0.6.6 Developer INSTALL instructions
+	0.6.7 Doxygen generation system
+	0.6.8 Copyright, license, version
+	0.6.8.1 Copyright and license message in all files
+	0.6.8.2 Version
+	0.6.9 g++ Precompiled headers
+
+
+Roadmap
+--------------------
+
+	0.6.9.1 Start a bugzilla online
+	0.6.9.2 Change license to BSD
+	0.6.9.3	Man page + info page
+	0.6.9.4 Doxy docs online
+	0.6.9.5 Register with Sourceforge
+	0.6.9.6 Dependencies check/download/install script
+0.7 "Alpha stage" - Sourceforge
+
+	0.7.4 Proper permissions checking (Bug #1)
+	0.7.5 Move sh* classes to Sherpa namespaces (Sherpa::Event::) (Bug #2)
+	0.7.7 Wastebin view (Bugs #4, 5)
+	0.7.8 Drag'n'drop (Bug #6), Cut'n'Paste (Bug #7)
+	0.7.9 DirectoryView columns
+0.8 "Usable stage"
+
+	0.8.4 About dialog
+	0.8.4.8 Property pages: Set permissions
+	0.8.4.9 Property pages: Works for groups of files and directories (recursively)
+	0.8.5 Property pages
+	0.8.6 OS file modification hook
+	0.8.7 Toolbar (Static)
+	0.8.7.9 Find view
+	0.8.8 Find
+	0.8.9 freedesktop.org MIME editing
+0.9 "Beta stage"
+
+	0.9.9 Install system and user install instructions
+1.0 "Release"
+	
+	1.0.6 Path autocompletion
+	1.0.7 Toolbar modification
+	1.0.8 Other layouts
+	1.0.9 Favourites
+1.1 "Friendly"
+
+	1.1.9 Multilanguage
+1.2 "Traveller"
